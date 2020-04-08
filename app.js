@@ -13,12 +13,12 @@ var score, roundScore, activePalyer, dice, gamePlaying;
 
 init()
 
+var lastDisc;
+
 //To get the random number of dise we use Math function
 //Store the value of math random number in dise
 //we need number between the one or 6 for that we need to multiply with 6
 //floor method we use so that we will get the number down to near number
- 
-
 
 // function rollDise () {
 //     dise = Math.floor(Math.random() * 6) + 1;
@@ -29,7 +29,6 @@ init()
 // function holdScore (dise) {
 //     alert(dise)
 // }
-
 
 //In this case we have set the value
 // document.querySelector('#current-' + activePalyer).innerHTML = '<em>' +dice+ '</em>';
@@ -60,9 +59,24 @@ document.querySelector('.btn-roll').addEventListener('click', function(){
         var diceDom = document.querySelector('.dice');
         diceDom.style.display = 'block';
         diceDom.src = 'dice-' + dice + '.png';
-        console.log(score, 'scorescore')
+       
         //Step 3: Update the round space if the rolled number was Not a 1
-        if(dice > 1) {
+
+        // previousScore = dice;
+        // console.log(previousScore, 'dice scorescore')
+
+        //If disc show 6 twise the total score should be zero
+        if(lastDisc === 6 && dice === 6){
+            //here we have set the current player value 0
+            score[activePalyer] = 0;
+
+            //Update the score in ui or current user
+            document.querySelector("#score-" + activePalyer).textContent = '0';
+
+            //Call the next player
+            nextPlayer();
+
+        } else if(dice > 1) {
             //Add score
             roundScore += dice;
 
@@ -76,6 +90,7 @@ document.querySelector('.btn-roll').addEventListener('click', function(){
             //Next Player
             nextPlayer()
         }
+        lastDisc = dice;
     }
 })
 
@@ -86,8 +101,9 @@ document.querySelector(".btn-hold").addEventListener('click', function(){
     if(gamePlaying){
         //ADD CURRENT SCORE TO GLOBAL SCORE
         score[activePalyer] += roundScore;
+      
         document.querySelector("#score-" + activePalyer).textContent = score[activePalyer];
-
+        
         //CHECK IF THE PALYER WON THE GAME
 
         if(score[activePalyer] >= 50) {
@@ -140,6 +156,7 @@ function init() {
     //we have set the value of score 0
 
     score = [0,0]
+    previousScore = [0,0]
     //Store the info of roundscore
     roundScore = 0;
 

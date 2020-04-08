@@ -13,7 +13,7 @@ var score, roundScore, activePalyer, dice, gamePlaying;
 
 init()
 
-var lastDisc;
+var lastDisc, setScore;
 
 //To get the random number of dise we use Math function
 //Store the value of math random number in dise
@@ -45,6 +45,15 @@ var lastDisc;
 //We need to pass the 2 parameters. 
 //First we need to pass event methode
 //Second is function callback
+
+
+//CREATED THE FUNCTION FOR SET THE WINNER SCORE
+ document.getElementById("setTarget").addEventListener('input', function(){
+    setScore = document.getElementById("setTarget").value;
+    document.querySelector(".winnerScore").textContent = setScore;
+ });
+
+
 document.querySelector('.btn-roll').addEventListener('click', function(){
     
     //So bydefault gamePlaying var true.
@@ -105,8 +114,8 @@ document.querySelector(".btn-hold").addEventListener('click', function(){
         document.querySelector("#score-" + activePalyer).textContent = score[activePalyer];
         
         //CHECK IF THE PALYER WON THE GAME
-
-        if(score[activePalyer] >= 50) {
+        //SET THE SCORE OF WHICH USER PROIVDED
+        if(score[activePalyer] >= setScore) {
             document.querySelector("#name-" + activePalyer).textContent = "Winner";
             document.querySelector('.player-' + activePalyer + '-panel').classList.add("winner");
             document.querySelector('.player-' + activePalyer + '-panel').classList.remove("active");

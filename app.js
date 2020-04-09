@@ -59,8 +59,7 @@ document.querySelector('.btn-roll').addEventListener('click', function(){
 
         //We have store the image display in varriable
         //To change the dynamically of image we update the last number of image with count of desc
-        document.getElementById('dice-1').style.display = 'block';
-        document.getElementById('dice-2').style.display = 'block';
+        showDice()
         
         document.getElementById('dice-1').src = 'dice-' + dice1 + '.png';
         document.getElementById('dice-2').src = 'dice-' + dice2 + '.png';
@@ -129,8 +128,7 @@ document.querySelector(".btn-hold").addEventListener('click', function(){
             document.querySelector("#name-" + activePalyer).textContent = "Winner";
             document.querySelector('.player-' + activePalyer + '-panel').classList.add("winner");
             document.querySelector('.player-' + activePalyer + '-panel').classList.remove("active");
-            document.getElementById('dice-1').style.display = "none";
-            document.getElementById('dice-2').style.display = "none";
+            hideDice()
             //SO WHEN OUR SCORE REACH TO 50 THEN IT WILL SET FALSE
             gamePlaying = false;
         }
@@ -164,8 +162,7 @@ function nextPlayer() {
    //document.querySelector(".player-0-panel").classList.remove('active');
    //document.querySelector(".player-1-panel").classList.add('active');
 
-   document.getElementById('dice-1').style.display = 'block';
-   document.getElementById('dice-2').style.display = 'block';
+   showDice()
 }
 
 //For new game
@@ -186,8 +183,7 @@ function init() {
 
     gamePlaying = true;
 
-    document.getElementById('dice-1').style.display = 'none';
-    document.getElementById('dice-2').style.display = 'none';
+    hideDice()
     document.getElementById("score-0").textContent = '0';
     document.getElementById("score-1").textContent = '0';
     document.getElementById("current-0").textContent = '0';
@@ -199,4 +195,14 @@ function init() {
     document.querySelector('.player-0-panel').classList.remove("active");
     document.querySelector('.player-1-panel').classList.remove("active");
     document.querySelector('.player-0-panel').classList.add("active");
+}
+
+function showDice() {
+    document.getElementById('dice-1').style.display = 'block';
+    document.getElementById('dice-2').style.display = 'block';
+}
+
+function hideDice() {
+    document.getElementById('dice-1').style.display = 'none';
+    document.getElementById('dice-2').style.display = 'none';
 }

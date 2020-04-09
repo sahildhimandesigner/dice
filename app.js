@@ -47,13 +47,6 @@ var lastDisc, setScore;
 //Second is function callback
 
 
-//CREATED THE FUNCTION FOR SET THE WINNER SCORE
- document.getElementById("setTarget").addEventListener('input', function(){
-    setScore = document.getElementById("setTarget").value;
-    document.querySelector(".winnerScore").textContent = setScore;
- });
-
-
 document.querySelector('.btn-roll').addEventListener('click', function(){
     
     //So bydefault gamePlaying var true.
@@ -112,10 +105,19 @@ document.querySelector(".btn-hold").addEventListener('click', function(){
         score[activePalyer] += roundScore;
       
         document.querySelector("#score-" + activePalyer).textContent = score[activePalyer];
-        
+       
+        //CREATED THE FUNCTION FOR SET THE WINNER SCORE
+        var input = document.querySelector('.final-score').value;
+        var winningScore;
+
+        if(input) {
+            winningScore = input;
+        } else {
+            winningScore = 50;
+        }
         //CHECK IF THE PALYER WON THE GAME
         //SET THE SCORE OF WHICH USER PROIVDED
-        if(score[activePalyer] >= setScore) {
+        if(score[activePalyer] >= winningScore) {
             document.querySelector("#name-" + activePalyer).textContent = "Winner";
             document.querySelector('.player-' + activePalyer + '-panel').classList.add("winner");
             document.querySelector('.player-' + activePalyer + '-panel').classList.remove("active");

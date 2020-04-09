@@ -1,6 +1,22 @@
 /**********************************************
 *** GENERAL
 **********************************************/
+.final-score {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50% );
+    top: 520px;
+    color: #555;
+    text-align: center;
+    font-family: 'Lato';
+    padding: 10px;
+    width: 160px;
+    text-transform: uppercase;
+}
+
+.final-score:focus {
+    outline: 0;
+}
 
 * {
     margin: 0;

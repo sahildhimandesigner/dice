@@ -206,3 +206,14 @@ function hideDice() {
     document.getElementById('dice-1').style.display = 'none';
     document.getElementById('dice-2').style.display = 'none';
 }
+
+function gameLoading() {
+    document.querySelector(".loading-game").style.display = 'block';
+    setTimeout(function(){
+        document.querySelector('.loading-window h3').style.display = 'none';
+        document.querySelector(".loading-game").style.display = 'none';
+        document.querySelector('.loading-window').style.display = 'none';
+    }, 3000)
+}
+
+window.onload = gameLoading();

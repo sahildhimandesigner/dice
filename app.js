@@ -9,7 +9,7 @@ GAME RULES:
 
 */
 //Declare the varriable
-var score, roundScore, activePalyer, dice, gamePlaying;
+var score, roundScore, activePalyer, dice, secondDice, gamePlaying;
 
 init()
 
@@ -52,15 +52,18 @@ document.querySelector('.btn-roll').addEventListener('click', function(){
     //So bydefault gamePlaying var true.
     if(gamePlaying) {
         //Step 1: Random Number
-        dice = Math.floor(Math.random() * 6) + 1;
-
+        dice1 = Math.floor(Math.random() * 6) + 1;
+        dice2 = Math.floor(Math.random() * 6) + 1;
+        console.log(dice1, dice2, 'both dice')
         //Step 2: Display the Result
 
         //We have store the image display in varriable
         //To change the dynamically of image we update the last number of image with count of desc
-        var diceDom = document.querySelector('.dice');
-        diceDom.style.display = 'block';
-        diceDom.src = 'dice-' + dice + '.png';
+        document.getElementById('dice-1').style.display = 'block';
+        document.getElementById('dice-2').style.display = 'block';
+        
+        document.getElementById('dice-1').src = 'dice-' + dice1 + '.png';
+        document.getElementById('dice-2').src = 'dice-' + dice2 + '.png';
        
         //Step 3: Update the round space if the rolled number was Not a 1
 
@@ -68,7 +71,7 @@ document.querySelector('.btn-roll').addEventListener('click', function(){
         // console.log(previousScore, 'dice scorescore')
 
         //If disc show 6 twise the total score should be zero
-        if(lastDisc === 6 && dice === 6){
+        if(lastDisc === 6 && dice1 === 6 && dice2 === 6){
             //here we have set the current player value 0
             score[activePalyer] = 0;
 
@@ -78,10 +81,10 @@ document.querySelector('.btn-roll').addEventListener('click', function(){
             //Call the next player
             nextPlayer();
 
-        } else if(dice > 1) {
+        } else if((dice1 > 1 && dice2 > 1) || (dice1 > 1 || dice2 > 1)) {
             //Add score
-            roundScore += dice;
-
+            roundScore += dice1 + dice2;
+            console.log(roundScore, 'roundScore dic 1 dic 2')
             //Or You can write this way
             //roundScore = roundScore + dice;
 
@@ -92,7 +95,7 @@ document.querySelector('.btn-roll').addEventListener('click', function(){
             //Next Player
             nextPlayer()
         }
-        lastDisc = dice;
+        lastDisc = `${dice1} ${dice2}`;
     }
 })
 
@@ -100,7 +103,12 @@ document.querySelector('.btn-roll').addEventListener('click', function(){
 
 document.querySelector(".btn-hold").addEventListener('click', function(){
     //IT WILL ONLY ACCESSIBLE IF THE PLAYER IS ACTIVE RIGHT NOW
+
     if(gamePlaying){
+        //TOTAL OF BOTH DICE
+        //STORE THE TOTAL VALUE OF DICE IN ROUDSCORE
+        roundScore += dice1 + dice2;                
+
         //ADD CURRENT SCORE TO GLOBAL SCORE
         score[activePalyer] += roundScore;
       
@@ -121,7 +129,8 @@ document.querySelector(".btn-hold").addEventListener('click', function(){
             document.querySelector("#name-" + activePalyer).textContent = "Winner";
             document.querySelector('.player-' + activePalyer + '-panel').classList.add("winner");
             document.querySelector('.player-' + activePalyer + '-panel').classList.remove("active");
-            document.querySelector('.dice').style.display = "none";
+            document.getElementById('dice-1').style.display = "none";
+            document.getElementById('dice-2').style.display = "none";
             //SO WHEN OUR SCORE REACH TO 50 THEN IT WILL SET FALSE
             gamePlaying = false;
         }
@@ -155,6 +164,8 @@ function nextPlayer() {
    //document.querySelector(".player-0-panel").classList.remove('active');
    //document.querySelector(".player-1-panel").classList.add('active');
 
+   document.getElementById('dice-1').style.display = 'block';
+   document.getElementById('dice-2').style.display = 'block';
 }
 
 //For new game
@@ -167,7 +178,6 @@ function init() {
     //we have set the value of score 0
 
     score = [0,0]
-    previousScore = [0,0]
     //Store the info of roundscore
     roundScore = 0;
 
@@ -176,7 +186,8 @@ function init() {
 
     gamePlaying = true;
 
-    document.querySelector('.dice').style.display = 'none';
+    document.getElementById('dice-1').style.display = 'none';
+    document.getElementById('dice-2').style.display = 'none';
     document.getElementById("score-0").textContent = '0';
     document.getElementById("score-1").textContent = '0';
     document.getElementById("current-0").textContent = '0';

@@ -18,6 +18,14 @@
     outline: 0;
 }
 
+#dice-1 {
+    top: 120px;
+}
+
+#dice-2 {
+    top: 260px;
+}
+
 * {
     margin: 0;
     padding: 0;
